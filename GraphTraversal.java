@@ -42,9 +42,8 @@ public class GraphTraversal {
         graph[6].add(new Edge(6, 5));
     }
 
-    public static void BFS(ArrayList<Edge> graph[], int V){
+    public static void BFS(ArrayList<Edge> graph[], int V, boolean vis[], int start){//O(V+E)
         Queue<Integer> q = new LinkedList<>();
-        boolean vis[] = new boolean[V];
         q.add(0);
 
         while (!q.isEmpty()) {
@@ -61,12 +60,50 @@ public class GraphTraversal {
         }
     }
 
+    public static void dfs(ArrayList<Edge>[] graph, int curr, boolean visited[]){ // O(V+E
+        System.out.print(curr+" ");
+        visited[curr] = true;
+
+        for(int i=0; i<graph[curr].size(); i++){
+            Edge e = graph[curr].get(i);
+            if (visited[e.dest] == false) {
+                dfs(graph, e.dest, visited);
+            }
+        }
+    }
+
+    public static void printAllPath(ArrayList<Edge> graph[], boolean vis[], int curr, String path, int tar){
+        if(curr == tar){
+            System.out.println(path);
+            return;
+        }
+
+        for(int i=0; i<graph[curr].size(); i++){
+            Edge e = graph[curr].get(i);
+            if(!vis[e.dest]){
+                vis[curr] = true;
+                printAllPath(graph, vis, e.dest, path+e.dest+"->", tar);
+                vis[curr] = false;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int V = 7;
         ArrayList<Edge> graph[] = new ArrayList[V];
         createGraph(graph);
 
-        BFS(graph, V);
+        // boolean vis[] = new boolean[V];
+        // for(int i=0; i<V; i++){
+        //     if(vis[i] == false){
+        //         // BFS(graph, V, vis, i);
+        //         dfs(graph, i, vis);
+        //     }
+        // }
+
+        int src = 0, tar = 5;
+        printAllPath(graph, new boolean[V], src, src+"->", tar);
+
         System.out.println();
     }
 }
