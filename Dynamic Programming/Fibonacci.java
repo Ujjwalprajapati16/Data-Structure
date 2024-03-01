@@ -26,6 +26,7 @@ public class Fibonacci {
     public static void main(String[] args) {
         int n = 20;
         int f[] = new int[n+1];
+        System.out.println(fib(n, f));
         System.out.println(fibTabulation(n)); //prints the ith number
     }
 }
