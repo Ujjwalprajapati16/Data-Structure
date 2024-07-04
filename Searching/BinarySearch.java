@@ -23,7 +23,7 @@ public class BinarySearch {
     }
     public static void main(String[] args) {
         int num[] = {2, 4, 6, 8, 10};
-        int key = 0;
+        int key = 10;
 
         System.out.println("Key found at " + binarySearch(num, key));
     }
